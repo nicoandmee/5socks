@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "lib": ["ES2018", "DOM", "DOM.Iterable", "ES5", "ES6"],
+    "module": "ESNext",
+    "noImplicitReturns": false,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "ES2020",
+    "types": [
+      "node"
+    ],
+    "allowJs": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src",
+    "src/**/*"
+  ]
+}
