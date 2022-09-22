@@ -1,25 +1,32 @@
 export interface ProxyLookup {
-  ip: string
-  count: number
-  country_code: string
-  country_name: string
-  is_eu: boolean
-  timezone: string
-  region: string
-  region_code: string
-  city: string
-  latitude: number
-  longitude: number
-  postal: string
-  asn: string
-  isp: string
-  vpn: boolean
-  tor_node: boolean
-  datacenter: boolean
-  public_proxy: boolean
-  web_proxy: boolean
-  search_robot: boolean
-  avastel?: any
-  os: string
-  timestamp: number
+  ip: string;
+  country: string;
+  asn: Asn;
+  geo: Geo;
+  method: string;
+  httpVersion: string;
+  url: string;
+  headers: Headers;
+}
+
+
+export interface Asn {
+    asnum: number;
+    org_name: string;
+}
+
+export interface Geo {
+    city: string;
+    region: string;
+    region_name: string;
+    postal_code: string;
+    latitude: number;
+    longitude: number;
+    tz: string;
+    lum_city: string;
+    lum_region: string;
+}
+
+export interface Headers {
+    [key: string]: string;
 }

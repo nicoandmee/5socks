@@ -3,7 +3,6 @@
 import arg from 'arg'
 import chalk from 'chalk'
 import clipboard from 'clipboardy'
-import { byFips } from 'country-code-lookup'
 import got from 'got'
 import { chromium } from 'playwright-extra'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
@@ -25,7 +24,7 @@ const args = arg({
   '-h': '--headful'
 })
 
-console.log(args)
+debug('args: %O', args)
 
 /**
  *
@@ -37,7 +36,7 @@ const checkSOCKS = async (socks: string): Promise<ProxyLookup> => {
   const agent = new SocksProxyAgent(proxyUrl)
 
   try {
-    const response = await got.get('https://ip.undetect.io/', {
+    const response = await got.get('https://lumtest.com/echo.json', {
       agent: {
         https: agent
       },
@@ -60,9 +59,10 @@ const checkSOCKS = async (socks: string): Promise<ProxyLookup> => {
  * @param country {str} - 2 letter country code (ISO)
  * @param region {str} - 2 letter US State code (optional)
  */
-export const findSOCKS = async (country: string, region?: string): Promise<void> => {
-  debug('findSOCKS %s %s', country, region)
-  const browser = await chromium.launch({ headless: false })
+export const findSOCKS = async (preferNonHeadless: boolean, country: string, region?: string): Promise<void> => {
+  debug('findSOCKS preferNonHeadless: %s | country: %s | region: %s', preferNonHeadless, country, region)
+
+  const browser = await chromium.launch({ headless: !preferNonHeadless })
   const context = await browser.newContext({
     ignoreHTTPSErrors: true,
     permissions: ['clipboard-read', 'clipboard-write']
@@ -91,7 +91,7 @@ export const findSOCKS = async (country: string, region?: string): Promise<void>
   await page.waitForFunction(() => [...document.querySelectorAll('#getit > table:nth-child(1) > tbody > tr > td > table > tbody > tr > td > table > tbody > tr')].length > 30)
 
   // Perform some sketchy js evaluation to find the country code
-  let countryCode = country.toUpperCase()
+  const countryCode = country.toUpperCase()
   const countryLink = await page.evaluate((countryCode) => {
     const countryTd = [
       ...document.querySelectorAll(
@@ -171,4 +171,4 @@ export const findSOCKS = async (country: string, region?: string): Promise<void>
   debug('5socks deinit complete')
 }
 
-findSOCKS(args._[0], args._[1]).catch(console.error)
+findSOCKS(args['--headful'] ?? false, args._[0], args._[1]).catch(console.error)
