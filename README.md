@@ -32,7 +32,7 @@
 
 ## ☭ A Call To Action <a name = "idea"></a>
 
-Comrades, who among you can say to have enjoyed the use of [5socks.net](https://5socks.net/en/)? Although the quality of material is high, the website never left the 1990s if we're being honest. As there is no accessible API for users to access, I became very frustrated and spent a couple hours writing this utility.
+Comrades, who among you can say to have enjoyed the use of [5socks.net](https://5socks.net/en/)? Although the quality of material is high, the website never left the 1990s if we're being honest. As there is no API for users to manage proxies with, I became very frustrated and spent a couple of hours writing this utility.
 
 During this time I noticed 5socks.net appears to have embedded code to detect other more, ah, unsophisticated automation tools at work (webdriver-based tools, to be frank, sorry). I will leave the analysis of the offending code fragment as a homework assignment in the bottom of the `README.md`.
 
@@ -85,7 +85,42 @@ Here are some example invocations of the binary:
 5socks us -h # Fetch a USA proxy, launching browser in headful mode for debugging
 ```
 
-A detailed ip lookup fingerprint will be presented once the proxy has been acquired, and it will be copied to the clipboard, allowing you to go straight ahead seamlessly with your work.
+A detailed ip lookup fingerprint will be presented once the proxy has been acquired:
+
+```json
+{
+  "ip": "82.147.116.195",
+  "country": "RU",
+  "asn": {
+    "asnum": 12772,
+    "org_name": "JSC ER-Telecom Holding"
+  },
+  "geo": {
+    "city": "",
+    "region": "",
+    "region_name": "",
+    "postal_code": "",
+    "latitude": 55.7386,
+    "longitude": 37.6068,
+    "tz": "Europe/Moscow"
+  },
+  "method": "GET",
+  "httpVersion": "1.1",
+  "url": "/echo.json",
+  "headers": {
+    "Host": "lumtest.com",
+    "X-Real-IP": "82.147.116.195",
+    "X-Forwarded-For": "82.147.116.195",
+    "X-Forwarded-Proto": "https",
+    "X-Forwarded-Host": "lumtest.com",
+    "user-agent": "got (https://github.com/sindresorhus/got)",
+    "accept": "application/json",
+    "accept-encoding": "gzip, deflate, br"
+  }
+}
+```
+
+The proxy will also be copied to the clipboard, allowing you to go straight ahead seamlessly with your work.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
