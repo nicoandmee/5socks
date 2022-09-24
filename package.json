@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "5socks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny utility to make working with 5socks less painful.",
   "keywords": [
     "5socks",
